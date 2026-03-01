@@ -26,7 +26,7 @@ devtools::install_github("douyadou0304-dev/coxdiag")
 We demonstrate the package using the `lung` dataset from the `survival` package,
 which contains survival data from 228 patients with advanced lung cancer.
 ```{r}
-library(coxdiag)
+devtools::load_all()
 library(survival)
 
 # Fit model and run diagnostics
