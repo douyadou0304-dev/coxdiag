@@ -13,3 +13,7 @@ Imports:
     survival,
     survminer,
     ggplot2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

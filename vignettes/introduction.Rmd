@@ -1,0 +1,82 @@
+---
+title: "Introduction to coxdiag"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to coxdiag}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Overview
+
+The `coxdiag` package automates the diagnostic workflow for Cox proportional
+hazards models. Given a dataset and a model formula, it fits the model, tests
+the proportional hazards assumption, and generates diagnostic plots.
+
+## Installation
+```{r eval=FALSE}
+devtools::install_github("douyadou0304-dev/coxdiag")
+```
+
+## Example: Lung Cancer Dataset
+
+We demonstrate the package using the `lung` dataset from the `survival` package,
+which contains survival data from 228 patients with advanced lung cancer.
+```{r}
+library(coxdiag)
+library(survival)
+
+# Fit model and run diagnostics
+result <- run_diagnostics(lung, Surv(time, status) ~ age + sex + ph.ecog)
+```
+
+## Model Results
+```{r}
+print(result$model)
+```
+
+The model shows that `sex` and `ph.ecog` are significant predictors of survival,
+while `age` is not significant after adjusting for the other covariates.
+
+## Proportional Hazards Assumption
+```{r}
+print(result$ph_test)
+```
+
+All p-values are well above 0.05, indicating that the proportional hazards
+assumption is not violated for any variable. The global test (p = 0.22) also
+supports this conclusion.
+
+## Diagnostic Plots
+
+### Schoenfeld Residuals
+```{r fig.width=7, fig.height=6}
+print(result$ph_plot)
+```
+
+The Schoenfeld residual plots show no systematic trend over time for any variable,
+consistent with the formal test results above.
+
+### Martingale Residuals
+```{r fig.width=6, fig.height=5}
+print(result$martingale_plot)
+```
+
+The Martingale residual plot shows no strong nonlinear pattern, suggesting that
+the linear functional form for continuous covariates is reasonable.
+
+## Human-Readable Summary
+```{r}
+print_summary(result)
+```
+
+## Conclusion
+
+The `coxdiag` package provides a one-function workflow for Cox model diagnostics.
+For this dataset, the model assumptions appear to be satisfied, and the results
+suggest that sex and ECOG performance status are the primary predictors of
+survival in this lung cancer cohort.
+
