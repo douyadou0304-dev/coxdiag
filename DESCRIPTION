@@ -2,7 +2,7 @@ Package: coxdiag
 Title: Automated Diagnostics for Cox Proportional Hazards Models
 Version: 0.0.0.9000
 Authors@R: 
-    person("Chengxi", "YourLastName", email = "your@email.com", role = c("aut", "cre"))
+    person("Chengxi", "Zhou", email = "czhou55@jh.edu", role = c("aut", "cre"))
 Description: Fits Cox regression models and automatically checks proportional 
     hazards assumptions, generates diagnostic plots, and returns structured summaries.
 License: MIT + file LICENSE
